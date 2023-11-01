@@ -1,0 +1,69 @@
+<h2>Cadastrar Usuário</h2>
+<form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="inline-inputs">
+      <div class="input-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" formControlName="nome" required>
+        <app-mensagem-validacao
+          [form]="usuarioForm"
+          [campo]="'nome'"
+          [parametro]="{minlength: 3, maxlength: 50 }">
+        </app-mensagem-validacao>
+      </div>
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" formControlName="email" required placeholder="example@domine.com">
+        <app-mensagem-validacao
+          [form]="usuarioForm"
+        [campo]="'email'">
+        </app-mensagem-validacao >
+      </div>
+    </div>
+    <div class="input-group">
+      <label for="senha">Senha:</label>
+      <div class="password-input">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="senha"
+          name="senha"
+          formControlName="senha"
+          required
+          minlength="6"
+          maxlength="20"
+          class="password-input-field"
+        >
+        <span class="toggle-password" (click)="alternarVisibilidadeSenha()">
+          <i class="fa" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}"></i>
+        </span>
+      </div>
+      <app-mensagem-validacao
+        [form]="usuarioForm"
+        [campo]="'senha'"
+        [parametro]="{minlength: 6, maxlength: 20}">
+      </app-mensagem-validacao >
+    </div>
+    <div class="input-group">
+      <label for="confirmaSenha">Confirmação de Senha:</label>
+      <div class="password-input">
+        <input
+          [type]="showPasswordConfirm ? 'text' : 'password'"
+          id="confirmaSenha"
+          name="confirmaSenha"
+          formControlName="confirmaSenha"
+          required
+          class="password-input-field"
+        >
+        <span class="toggle-password" (click)="alternarVisibilidadeConfirmacaoSenha()">
+          <i class="fa" [ngClass]="{'fa-eye': showPasswordConfirm, 'fa-eye-slash': !showPasswordConfirm}"></i>
+        </span>
+      </div>
+      <app-mensagem-validacao
+        [form]="usuarioForm"
+        [campo]="'confirmaSenha'"
+        [parametro]="{maxlength: 20}">
+      </app-mensagem-validacao >
+    </div>
+  </div>
+  <button type="submit" [disabled]="!this.usuarioForm.valid">Salvar</button>
+</form>
